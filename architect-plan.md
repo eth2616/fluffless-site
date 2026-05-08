@@ -8,7 +8,7 @@ Carry from Stage 2: `index.html` + `styles.css` only. No JS, no build step, no r
 ## 2. Semantic structure (Stage 3)
 `<main>` contains FIVE `<section>` elements in this exact order, then `<footer>` outside main:
 1. `<section class="section hero">` — `.hero-grid` containing `.hero-text` (eyebrow → `.hero-rule` → `<h1>` → `.hero-sub` → `.cta-row`) and `<div class="hero-wordmark" aria-hidden="true">FluffLess</div>`
-2. `<section class="section philosophy" id="philosophy">` — `<h2>` → `<p class="philosophy-intro">` → `<ul class="principles">` with three `<li>` (each: `<strong>Label</strong> — descriptor.`)
+2. `<section class="section philosophy" id="philosophy">` — `<h2>` → `<p>` (intro) → `<ul class="principles">` with three `<li>` (each: `<strong>Label</strong> — descriptor.`)
 3. `<section class="section featured" id="babylull">` — `.featured-grid` containing `.featured-text` (eyebrow → `<h2>` → body → `<ul class="feature-list">` 6 items → `<ul class="privacy-row">` 4 items → `.product-cta`) and `.phone-frame`
 4. `<section class="section about">` — `<h2>` + body
 5. `<footer class="footer">` — `.footer-inner` with brand `<p>` → `<a class="footer-email">` → copyright `<p>`
@@ -19,11 +19,13 @@ Principles list is `<ul>` (decisive): three is an enumerable set. List semantics
 
 BabyLull CTA pattern (locked verbatim): `<button … aria-disabled="true" aria-describedby="babylull-coming-soon">Get BabyLull</button>` + `<p id="babylull-coming-soon">Coming soon</p>` inside `.product-cta`.
 
-## 3. Token plan (Stage 3 deltas)
-- ADD `--max-layout: 960px` (approved). Used by Hero and Philosophy. Sits between `--max-prose` (680) and `--max-wide` (1040).
-- KEEP `--color-surface-dark` defined but unused. Cost is one CSS line. Removal requires touching both light and dark blocks for zero token-hygiene gain. Reassess at Stage 4.
-- All other Stage 2 tokens carry verbatim (type scale, spacing, accent set, frame colors, `--max-prose`, `--max-wide`, `--max-narrow`).
-- Footer dark-mode uses the existing `--color-surface-tint` swap (`#222224`) — no rule change needed beyond removing the `--color-surface-dark` reference in §4.
+## 3. Token plan (current state, post-alignment fix)
+- `--max-layout: 960px` is the single layout-width token. It governs every section via the shared `.container`.
+- `--page-padding: 1.5rem` at base, overridden to `2rem` inside the `@media (min-width: 960px)` block for consistent desktop side gutters.
+- `--max-prose`, `--max-wide`, `--max-narrow` were removed in the alignment fix — no longer used.
+- `--color-surface-dark`, `--color-text-on-dark`, `--color-text-on-dark-muted` defined but unused. Zero-cost retention; reassess at Stage 5.
+- All other tokens (type scale, spacing, accent set, frame colors) carry verbatim.
+- Footer dark-mode uses the existing `--color-surface-tint` swap (`#222224`).
 
 ## 4. Component patterns (Stage 3)
 
@@ -65,15 +67,15 @@ BabyLull CTA pattern (locked verbatim): `<button … aria-disabled="true" aria-d
 - `.footer-email { color: var(--color-accent-text); }` — plum on tint = 6.57:1 AA in light; auto-swaps to lavender in dark via the token. Underline + 44px min-height carry.
 - DO NOT reference `--color-surface-dark`, `--color-text-on-dark`, or `--color-text-on-dark-muted` anywhere in `.footer` rules.
 
-### `.container--layout` (NEW modifier)
-`.container--layout { max-width: var(--max-layout); }` — applies to Hero and Philosophy only. Mobile padding (`--page-padding` 1.5rem) unchanged.
+### `.container` (single shared container)
+`.container { width: 100%; max-width: var(--max-layout); margin-inline: auto; padding-inline: var(--page-padding); }` — every section uses this exact rule. The earlier `.container--layout` / `--wide` / `--narrow` modifier system has been removed. All section content shares a single horizontal grid: identical max-width, margins, and padding produce identical left and right edges across Hero, Philosophy, BabyLull, About, and Footer.
 
 ## 5. Section background and container assignment
-- Hero → `.container--layout` → `--color-bg`
-- Philosophy → `.container--layout` → `--color-surface`
-- BabyLull → `.container--wide` → `--color-surface-tint` (+ existing 2px plum top border)
-- About → `.container--narrow` → `--color-surface`
-- Footer → `.container` (default 680) → `--color-surface-tint` (+ 1px hairline top border)
+- Hero → `.container` → `--color-bg`
+- Philosophy → `.container` → `--color-surface`
+- BabyLull → `.container` → `--color-surface-tint` (+ existing 2px plum top border)
+- About → `.container` → `--color-surface`
+- Footer → `.container` (with `footer-inner` flex/center utility) → `--color-surface-tint` (+ 1px hairline top border)
 
 Adjacency check: bg / surface / tint / surface / tint. No two adjacent share a token. ✓
 
@@ -97,14 +99,14 @@ CSS: (5) `.cards-grid`, `.card`, `.card__title`, `.card__body`; (6) `.value-list
 - `:focus-visible` ring carries (token-driven, auto-lightens in dark). Reduced-motion block carries. One `<h1>`, sequential `<h2>`, no `<h3>`.
 
 ## 9. Implementation guardrails for the Coder
-Stage 2 guardrails carry: no `<script>`, no inline `style="…"`, no inline event handlers; no copy changes; no new tokens beyond §3 (Stage 3 adds exactly one: `--max-layout`); no widening past `--max-wide` or narrowing past `--max-narrow`; no SVG/image other than `favicon.svg`; no `@font-face`; no remote anything; no hover transforms — only opacity/color/background/border/box-shadow transitions; CSS Grid for column shells only; eyebrow class limited to Hero and BabyLull.
+Stage 2 guardrails carry: no `<script>`, no inline `style="…"`, no inline event handlers; no copy changes; no new tokens beyond §3; no widening or narrowing of `.container` away from the shared `--max-layout` (single shared container is the alignment contract); no SVG/image other than `favicon.svg`; no `@font-face`; no remote anything; no hover transforms — only opacity/color/background/border/box-shadow transitions; CSS Grid for column shells only; eyebrow class limited to Hero and BabyLull.
 
 Stage 3 additions:
 - Do NOT add `<svg>` or `<img>` for the wordmark — single `<div>` of pure text.
 - Do NOT use flex `gap` as the privacy-row dot spacing mechanism. Spacing comes from the dot's `margin-inline`; flex `gap` is `0` at ≥640px.
 - Do NOT use `display: contents`. Do NOT set `width: 100%` on `.privacy-row li`.
 - Do NOT add a divider element (`<hr>`, `<span>`) inside `.principles` — dividers are `border-left` / `border-top` on `<li>`.
-- Use `.container--layout` ONLY on Hero and Philosophy; `.container--wide` ONLY on BabyLull; `.container--narrow` ONLY on About.
+- Every section uses `<div class="container">` with no modifier; introducing per-section width or padding overrides breaks the alignment contract.
 
 ### Mental render correctness check (mandatory before declaring done)
 For each new primitive, the Coder must mentally execute the CSS at 375 / 640 / 1280 widths and confirm:
@@ -120,8 +122,8 @@ For each new primitive, the Coder must mentally execute the CSS at 375 / 640 / 1
 - **Wordmark color in dark mode**: `--color-border` swaps to `#2C2C2E` on `#0F0F10` ≈ 1.6:1. Decorative + `aria-hidden`, so AA does not apply. Verify it's faintly visible (intentional) on OLED in QA; if invisible, raise the wordmark color in the dark block to `#3A3A3C` (one-off, not a token change).
 
 ## 11. Handoff checklist for the Coder (build order)
-1. Add `--max-layout: 960px` to `:root`. No other token changes.
-2. Add `.container--layout` modifier in LAYOUT block.
+1. Confirm `--max-layout: 960px` and `--page-padding` (1.5rem base, 2rem at ≥960px) are present in `:root` and the desktop media query.
+2. Confirm `.container` uses `max-width: var(--max-layout)` and is the only container class on every section wrapper.
 3. Rewrite `<main>` to the 5-section structure in §2; perform all HTML deletions from §6.
 4. Add `.hero-wordmark` markup + CSS (§4) with mobile/tablet-hide rule (`display: none` until ≥960px).
 5. Rewrite Philosophy markup (intro + `.principles`); delete `.cards-grid`/`.card*`; add `.principles` CSS (column-stack base, row at ≥640px).

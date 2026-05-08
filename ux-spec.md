@@ -2,13 +2,9 @@
 
 ## 1. Composition Strategy
 
-**Container approach: introduce `.container--layout` (~960px).** Do not widen the default `.container` — About prose must stay letter-like.
-- `.container--layout` (~960px): Hero, Philosophy
-- `.container--wide` (1040px): BabyLull — unchanged
-- `.container--narrow` (580px): About — unchanged
-- `.container` (680px): Footer inner — unchanged
+**Container approach: single shared `.container` at 960px** (post-Stage 3 alignment fix). Every section uses `<div class="container">` with `max-width: var(--max-layout)` (960px), `margin-inline: auto`, and `padding-inline: var(--page-padding)` (1.5rem base, 2rem at ≥960px). All section left edges align top-to-bottom. The earlier `.container--layout` / `--wide` / `--narrow` modifier system has been removed.
 
-Section composition mix: Hero (two-column layout), Philosophy (single-column intro + inline principles row spanning full layout width), BabyLull (two-column), About (narrow single-column prose), Footer (centered single-column).
+Section composition mix: Hero (two-column layout), Philosophy (single-column intro + inline principles row spanning full container width), BabyLull (two-column inside the same shared container), About (single-column prose), Footer (centered single-column).
 
 Section backgrounds — no two adjacent sections share a surface:
 1. Hero → `--color-bg` (off-white)
@@ -23,7 +19,7 @@ Section backgrounds — no two adjacent sections share a surface:
 
 Desktop: right column, vertically centered, right-aligned within the column. Hidden below 640px — wordmark does not appear on mobile or tablet. This prevents any vertical length increase.
 
-Text-column hierarchy unchanged: eyebrow → accent rule → h1 → sub-copy → CTA row. Hero uses `.container--layout`.
+Text-column hierarchy unchanged: eyebrow → accent rule → h1 → sub-copy → CTA row. Hero uses the shared `.container`.
 
 Hero grid: `~55% text / ~45% wordmark`. Existing `hero-grid` column ratio (`1.2fr / 1fr`) carries forward.
 
@@ -31,7 +27,7 @@ Hero grid: `~55% text / ~45% wordmark`. Existing `hero-grid` column ratio (`1.2f
 
 **Principles composition: flex row of three labeled items with thin vertical hairline dividers between them.** Each item: `<strong>` label (semibold, `--color-text`) followed by em-dash and descriptor (muted, regular weight). Items sit side-by-side at ≥640px. Thin 1px `--color-border` vertical dividers separate items. At base mobile: stack vertically, dividers become horizontal hairlines.
 
-Container: `.container--layout`. Section intro `<p>` constrained to ~620px, left-aligned (not full-width) — intentional asymmetry within the wider container creates layout variety. Principles row sits flush below intro, spanning the full `.container--layout` width.
+Container: shared `.container` (960px). Section intro `<p>` flows to the full container width along with the principles row; the post-alignment fix removed the prior 620px intro constraint to keep all section left/right edges flush.
 
 No card chrome. No eyebrow. Heading leads, intro follows, principles row closes the section.
 
@@ -51,7 +47,7 @@ Text-column order: eyebrow → h2 → body → feature list → privacy row → 
 
 ## 5. About (Stage 3)
 
-No changes. Single column, `.container--narrow` (580px), heading-led, single body paragraph. Letter-like intimacy preserved.
+Single column, shared `.container` (960px) — widened from the prior 580px narrow container so the section's left edge aligns with every other section. Heading-led, single body paragraph. The Stage 3 "letter-like intimacy" was traded for cross-section alignment.
 
 ## 6. Footer (Stage 3)
 
@@ -90,7 +86,7 @@ All light-mode tokens carry from Stage 2. Changes only:
 
 - [ ] Exactly 5 sections in order: Hero, Philosophy, BabyLull, About, Footer
 - [ ] Hero right column is a typographic wordmark, `aria-hidden`, hidden below 640px
-- [ ] Hero and Philosophy on `.container--layout` (~960px); BabyLull on `--wide` (1040px); About on `--narrow` (580px)
+- [ ] All five sections (Hero, Philosophy, BabyLull, About, Footer) use the single shared `.container` (960px); no container modifier classes remain
 - [ ] No two adjacent sections share the same background surface token
 - [ ] Philosophy renders three labeled principles in a horizontal flex row with hairline dividers; zero card borders
 - [ ] BabyLull has one feature list (6 items, dashes, muted) + one inline privacy row (4 items, dots, `--text-xs`, no markers, but still a `<ul>` semantically)

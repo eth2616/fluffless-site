@@ -51,17 +51,14 @@
   --section-gap: 4rem;
 
   /* Layout */
-  --max-prose:   680px;
-  --max-wide:    1040px;
-  --max-narrow:  580px;
   --max-layout:  960px;
   --page-padding: 1.5rem;
   --radius:       0.625rem; /* 10 px */
 }
 
-/* Desktop section gap */
+/* Desktop section gap and padding */
 @media (min-width: 960px) {
-  :root { --section-gap: 6rem; }
+  :root { --section-gap: 6rem; --page-padding: 2rem; }
 }
 
 
@@ -122,21 +119,9 @@ body {
 
 .container {
   width: 100%;
-  max-width: var(--max-prose);
+  max-width: var(--max-layout);
   margin-inline: auto;
   padding-inline: var(--page-padding);
-}
-
-.container--wide {
-  max-width: var(--max-wide);
-}
-
-.container--narrow {
-  max-width: var(--max-narrow);
-}
-
-.container--layout {
-  max-width: var(--max-layout);
 }
 
 .section {
@@ -351,10 +336,6 @@ p + p { margin-top: var(--space-2); }
 /* ==========================================================================
    PHILOSOPHY — PRINCIPLES LIST
    ========================================================================== */
-
-.philosophy-intro {
-  max-width: 620px;
-}
 
 .principles {
   list-style: none;
