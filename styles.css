@@ -51,9 +51,10 @@
   --section-gap: 4rem;
 
   /* Layout */
-  --max-prose:    680px;
-  --max-wide:     1040px;
-  --max-narrow:   580px;
+  --max-prose:   680px;
+  --max-wide:    1040px;
+  --max-narrow:  580px;
+  --max-layout:  960px;
   --page-padding: 1.5rem;
   --radius:       0.625rem; /* 10 px */
 }
@@ -134,6 +135,10 @@ body {
   max-width: var(--max-narrow);
 }
 
+.container--layout {
+  max-width: var(--max-layout);
+}
+
 .section {
   padding-block: var(--section-gap);
 }
@@ -149,10 +154,6 @@ body {
 .featured {
   background-color: var(--color-surface-tint);
   border-top: 2px solid var(--color-accent-text);
-}
-
-.why-less {
-  background-color: var(--color-surface);
 }
 
 .about {
@@ -171,24 +172,15 @@ h1, h2 {
 }
 
 h1 {
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
   font-weight: 700;
   margin-bottom: var(--space-2);
 }
 
 h2 {
-  font-size: var(--text-xl);
+  font-size: var(--text-2xl);
   font-weight: 700;
-  margin-bottom: var(--space-3);
-}
-
-h3 {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: 0;
-  color: var(--color-text);
-  margin-bottom: var(--space-1);
+  margin-bottom: var(--space-4);
 }
 
 p { color: var(--color-text); }
@@ -197,7 +189,6 @@ p + p { margin-top: var(--space-2); }
 
 @media (min-width: 640px) {
   h1 { font-size: var(--text-4xl); }
-  h2 { font-size: var(--text-2xl); }
 }
 
 
@@ -215,6 +206,22 @@ p + p { margin-top: var(--space-2); }
 @media (min-width: 960px) {
   .hero-grid {
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+.hero-wordmark {
+  font-size: clamp(3.25rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-border);
+  text-align: right;
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .hero-wordmark {
+    display: block;
   }
 }
 
@@ -342,74 +349,64 @@ p + p { margin-top: var(--space-2); }
 
 
 /* ==========================================================================
-   CARDS
+   PHILOSOPHY — PRINCIPLES LIST
    ========================================================================== */
 
-.cards-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3);
+.philosophy-intro {
+  max-width: 620px;
+}
+
+.principles {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
   margin-top: var(--space-4);
 }
 
-@media (min-width: 960px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.card {
-  background: var(--color-surface-tint);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  padding: var(--space-3);
-}
-
-.card__body {
+.principles li {
+  padding-block: var(--space-2);
   color: var(--color-text-muted);
-  font-size: var(--text-sm);
+}
+
+.principles li:not(:first-child) {
+  border-top: 1px solid var(--color-border);
+}
+
+.principles li strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .principles {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .principles li {
+    flex: 1;
+    padding-inline: var(--space-3);
+    padding-block: 0;
+    border-top: 0;
+  }
+
+  .principles li:not(:first-child) {
+    border-top: 0;
+    border-left: 1px solid var(--color-border);
+  }
 }
 
 
 /* ==========================================================================
-   LISTS — value / feature / privacy
+   LISTS — feature / privacy-row
    ========================================================================== */
-
-.value-list {
-  list-style: none;
-  margin-top: var(--space-3);
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.value-list li {
-  position: relative;
-  padding-left: 1.5rem;
-  font-size: var(--text-base);
-  color: var(--color-text);
-}
-
-.value-list li::before {
-  content: "●";
-  position: absolute;
-  left: 0;
-  color: var(--color-accent-text);
-  font-size: 0.65em;
-  line-height: 1.8;
-}
-
-.list-separator {
-  border: none;
-  border-top: 1px solid var(--color-border);
-  margin-block: var(--space-3);
-}
 
 .feature-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
+  margin-top: var(--space-3);
 }
 
 .feature-list li {
@@ -427,33 +424,41 @@ p + p { margin-top: var(--space-2); }
   font-weight: 700;
 }
 
-.privacy-list {
+.privacy-row {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
-  margin-bottom: var(--space-3);
+  gap: 0.375rem;
+  margin-top: var(--space-2);
 }
 
-.privacy-list li {
-  position: relative;
-  padding-left: 1.5rem;
-  font-size: var(--text-sm);
+.privacy-row li {
+  white-space: nowrap;
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
 
-.privacy-list li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: var(--color-accent-text);
-  font-weight: 700;
+.privacy-row li::after {
+  display: none;
 }
 
-.privacy-note {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  font-style: italic;
+@media (min-width: 640px) {
+  .privacy-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0;
+  }
+
+  .privacy-row li::after {
+    display: inline;
+  }
+
+  .privacy-row li:not(:last-child)::after {
+    content: "·";
+    margin-inline: 0.5rem;
+    color: var(--color-text-muted);
+  }
 }
 
 
@@ -495,8 +500,7 @@ p + p { margin-top: var(--space-2); }
 }
 
 @media (min-width: 960px) {
-  .hero .phone-frame    { height: 480px; }
-  .featured .phone-frame { height: 420px; }
+  .featured .phone-frame { height: 460px; box-shadow: 0 16px 48px rgba(0,0,0,0.18); }
 }
 
 .featured-grid {
@@ -518,8 +522,9 @@ p + p { margin-top: var(--space-2); }
    ========================================================================== */
 
 .footer {
-  background-color: var(--color-surface-dark);
-  padding-block: 4rem;
+  background-color: var(--color-surface-tint);
+  border-top: 1px solid var(--color-border);
+  padding-block: 2.5rem;
 }
 
 .footer-inner {
@@ -532,7 +537,7 @@ p + p { margin-top: var(--space-2); }
 
 .footer p {
   font-size: var(--text-sm);
-  color: var(--color-text-on-dark-muted);
+  color: var(--color-text-muted);
 }
 
 .footer-email {
@@ -542,7 +547,7 @@ p + p { margin-top: var(--space-2); }
   min-height: 44px;
   font-size: var(--text-base);
   font-weight: 500;
-  color: var(--color-accent-on-dark);
+  color: var(--color-accent-text);
   text-decoration: underline;
   text-underline-offset: 3px;
   transition: opacity 0.15s ease;
