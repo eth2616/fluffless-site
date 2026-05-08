@@ -18,16 +18,17 @@
   5. Privacy
 - One `<footer>` after main.
 - Use one `<h1>` in Hero and `<h2>` for remaining sections.
+- Keep no top navigation in Stage 1.
 
 ## CTA decision
-- Primary CTA `Get BabyLull` is an intentional coming-soon control.
-- Implement primary CTA as `<button type="button">` so activation does not navigate or jump-scroll.
-- Accessibility for primary CTA: add `aria-disabled="true"` and `aria-describedby` pointing to adjacent visible helper text `Coming soon`.
-- Include adjacent visible helper text `Coming soon`.
-- Secondary CTA `Support` links to `#support`.
+- Hero primary CTA text is exactly `See apps`, implemented as live anchor link to `#babylull`.
+- Hero secondary CTA text is exactly `Support`, implemented as live anchor link to `#support`.
+- Hero contains no coming-soon helper text.
+- BabyLull bottom CTA text is exactly `Get BabyLull`, placed after the feature list.
+- BabyLull CTA is a non-navigating `<button type="button">` with `aria-disabled="true"` and `aria-describedby` pointing to adjacent visible helper text `Coming soon`.
 
 ## Section content requirements
-- About: 1-2 short paragraphs about FluffLess intent (simple, trustworthy, anti-clutter tools for real life).
+- About: 1-2 short paragraphs about FluffLess intent (simple, trustworthy, anti-clutter tools for real life) and must not repeat Hero headline/tagline messaging.
 - BabyLull: 1-2 short paragraphs describing BabyLull as a coming-soon baby sleep tracker for tired parents.
 - BabyLull compact feature list includes:
   - Quick sleep tracking
@@ -72,3 +73,4 @@
 - Implement exact section order and required content.
 - Keep runtime dependency-free static output.
 - Verify mobile, desktop, dark mode, focus visibility, CTA behavior, mailto behavior, and privacy copy accuracy.
+- Ensure Hero messaging is brand-level (not baby-only) and metadata aligns with that framing.

@@ -20,21 +20,24 @@
 ## Color and surfaces
 - Neutral base + subtle surface alternation between sections
 - One calm accent used sparingly for labels and subtle emphasis
-- Dark mode is a Stage 1 requirement, implemented cleanly with CSS `prefers-color-scheme` only
+- Dark mode is included in Stage 1 only if implemented cleanly with CSS `prefers-color-scheme` and no added complexity
 - Contrast target: WCAG AA
 
 ## Hero composition
-- Structure: brand label (`FluffLess`), one strong headline, short supporting paragraph, CTA row, small coming-soon helper line
-- Keep Hero text compact and product-first; no oversized imagery, no device mockups, no decorative illustration
-- CTA row contains primary `Get BabyLull` and secondary `Support`
+- Structure: brand label (`FluffLess`), one strong headline, short supporting paragraph, CTA row
+- Keep Hero text compact and brand-first; no oversized imagery, no device mockups, no decorative illustration
+- Hero copy positions FluffLess as a broader brand for simple apps for real life, not a baby-only product
+- CTA row contains primary `See apps` and secondary `Support`
+- No coming-soon helper text in Hero
 - On mobile, stack CTA controls with consistent spacing; on larger screens, keep them on one row if space allows
 
 ## CTA behavior
-- Primary CTA in Hero: `Get BabyLull`
-- Primary CTA is intentionally coming-soon and must not navigate or jump-scroll when activated
-- Keep visible helper text near CTA: `Coming soon`
-- Accessible label communicates coming-soon state
+- Hero primary CTA text is exactly `See apps` and links to `#babylull`
+- Hero primary CTA is a live navigation action (no placeholder/disabled behavior)
+- `See apps` target is intentionally future-ready for a later dedicated apps page link
 - Secondary CTA: `Support` links to the Support section (UX decision for Stage 1 clarity)
+- BabyLull section bottom CTA text is exactly `Get BabyLull`
+- BabyLull CTA uses coming-soon placeholder behavior and accessibility pattern: non-navigating button with `aria-disabled=\"true\"`, visible `Coming soon` hint, and `aria-describedby` linkage
 
 ## Support behavior
 - Show visible text `support@flufflessapp.com`
@@ -49,7 +52,7 @@ Inline section must include:
 - `Full privacy policy coming soon`
 
 ## BabyLull content requirements
-- Keep BabyLull concise with 1-2 short paragraphs describing a calm coming-soon baby sleep tracker for tired parents
+- Keep BabyLull concise with 1-2 short paragraphs describing a calm coming-soon baby sleep tracker for tired parents, what it is for, and why it is being built
 - Include a compact feature list (not a large feature grid) with:
   - Quick sleep tracking
   - Simple day view calendar
@@ -57,6 +60,12 @@ Inline section must include:
   - Local reminders
   - Live Activities
   - Data stored on your device
+- Add `Get BabyLull` CTA at the bottom of BabyLull section after the feature list, with the coming-soon/accessibility pattern
+
+## About content requirements
+- About includes 1-2 short paragraphs focused on FluffLess brand philosophy and build intent
+- About should support Hero context without repeating Hero headline/tagline message
+- About remains brand-level and avoids product-feature detail duplication
 
 ## Responsive breakpoints
 - Base: under 640px

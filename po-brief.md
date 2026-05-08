@@ -24,10 +24,12 @@
 - Dark mode is in scope for Stage 1 and required if implemented cleanly with CSS `prefers-color-scheme`, without added JavaScript, settings UI, dependencies, or complexity
 
 ## CTA requirements
-- Primary CTA text: `Get BabyLull`
-- Primary CTA is a coming-soon placeholder
-- Secondary CTA: `Support`
-- Placeholder behavior must feel intentional and accessible
+- Hero primary action text is exactly: `See apps`
+- Hero secondary action text is exactly: `Support`
+- Hero `Support` action navigates to the Support section on this page
+- `See apps` currently navigates to the BabyLull section on this page and is intentionally future-ready for a later apps page link
+- BabyLull primary CTA text at the bottom of BabyLull section is exactly: `Get BabyLull`
+- BabyLull CTA keeps the existing coming-soon placeholder and accessibility pattern
 
 ## Support requirements
 - Email-only support
@@ -45,7 +47,8 @@
 
 ## Done criteria
 - Correct section order and required content present
-- About section includes 1-2 short paragraphs focused on FluffLess's intent: simple, trustworthy baby-focused tools that avoid clutter and respect families' attention
+- Hero positions FluffLess as a broader brand for simple apps for real life (not baby-only framing)
+- About section includes 1-2 short paragraphs that support brand philosophy and do not repeat Hero headline/tagline message
 - BabyLull section includes 1-2 short paragraphs focused on product intent: a calm coming-soon baby sleep tracker for tired parents, what it is for, and why it is being built
 - BabyLull includes a compact feature list with:
   - Quick sleep tracking
@@ -55,5 +58,11 @@
   - Live Activities
   - Data stored on your device
 - Responsive mobile and desktop rendering
-- Metadata present (title, description, social preview, favicon)
+- Metadata updated and present (title, description, social preview, favicon) to align with broader brand-level hero
 - Tone stays calm, warm, clear, and trustworthy
+
+## Non-goals
+- No full redesign or expansion into a larger marketing site
+- No new pages in this revision
+- No new products or product sections beyond BabyLull
+- No backend, routing, dependency, or analytics changes
