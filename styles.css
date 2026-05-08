@@ -4,35 +4,42 @@
 
 :root {
   /* Surfaces */
-  --color-bg:      #FAFAF9;
-  --color-surface: #F3F3F1;
+  --color-bg:           #F7F6F3;
+  --color-surface:      #FFFFFF;
+  --color-surface-tint: #F1ECE3;
+  --color-surface-dark: #1A1A1A;
 
   /* Text */
-  --color-text:       #1C1C1E;
-  --color-text-muted: #56565A; /* 6.2:1 on --color-bg — passes WCAG AA */
+  --color-text:               #1C1C1E;
+  --color-text-muted:         #56565A;
+  --color-text-on-dark:       #F2F2F7;
+  --color-text-on-dark-muted: #AEAEB2;
 
-  /* Accent: button backgrounds, borders */
-  --color-accent:    #2D5FA8;  /* warm periwinkle, was #1A5E8A — ~6.3:1 on --color-accent-fg */
-  --color-accent-fg: #FFFFFF;
-
-  /* Accent in inline text contexts (labels, list marks, links) */
-  --color-accent-text: #2D5FA8; /* ~6.5:1 on --color-bg — passes WCAG AA */
+  /* Accent */
+  --color-accent:         #5E4B73;
+  --color-accent-fg:      #FFFFFF;
+  --color-accent-text:    #5E4B73;
+  --color-accent-on-dark: #C4B5D9;
 
   /* Borders */
   --color-border: #E2E2DF;
+
+  /* Frame */
+  --color-frame-shell:  #1C1C1E;
+  --color-frame-screen: #FAFAF9;
 
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
   /* Type scale */
-  --text-xs:   0.8125rem; /*  13 px */
-  --text-sm:   0.9375rem; /*  15 px */
-  --text-base: 1.0625rem; /*  17 px */
-  --text-lg:   1.25rem;   /*  20 px */
-  --text-xl:   1.5rem;    /*  24 px */
-  --text-2xl:  2rem;      /*  32 px */
-  --text-3xl:  2.5rem;    /*  40 px */
-  --text-4xl:  3.25rem;   /*  52 px */
+  --text-xs:   0.8125rem;  /*  13 px */
+  --text-sm:   0.9375rem;  /*  15 px */
+  --text-base: 1.0625rem;  /*  17 px */
+  --text-lg:   1.25rem;    /*  20 px */
+  --text-xl:   1.5rem;     /*  24 px */
+  --text-2xl:  2rem;       /*  32 px */
+  --text-3xl:  2.5rem;     /*  40 px */
+  --text-4xl:  3.25rem;    /*  52 px */
 
   /* Spacing */
   --space-1: 0.5rem;
@@ -45,27 +52,10 @@
 
   /* Layout */
   --max-prose:    680px;
+  --max-wide:     1040px;
+  --max-narrow:   580px;
   --page-padding: 1.5rem;
   --radius:       0.625rem; /* 10 px */
-}
-
-/* Dark mode token overrides */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg:      #0F0F10;
-    --color-surface: #1C1C1E;
-
-    --color-text:       #F2F2F7;
-    --color-text-muted: #AEAEB2; /* 9.1:1 on --color-bg dark — passes WCAG AA */
-
-    --color-accent:    #2D5FA8;  /* warm periwinkle, matches light token */
-    --color-accent-fg: #FFFFFF;
-
-    /* Lighter tint for text legibility on dark surfaces */
-    --color-accent-text: #8AAEE0; /* ~9.2:1 on --color-bg dark — passes WCAG AA; was #7BBAD9 */
-
-    --color-border: #2C2C2E;
-  }
 }
 
 /* Desktop section gap */
@@ -136,31 +126,37 @@ body {
   padding-inline: var(--page-padding);
 }
 
+.container--wide {
+  max-width: var(--max-wide);
+}
+
+.container--narrow {
+  max-width: var(--max-narrow);
+}
+
 .section {
   padding-block: var(--section-gap);
 }
 
-/* Hero gets extra vertical breathing room */
 .hero {
   padding-block: calc(var(--section-gap) * 1.5);
 }
 
-/* Subtle alternating section surfaces */
-.about,
-.support {
+.philosophy {
   background-color: var(--color-surface);
 }
 
-/* Subtle top boundary on non-hero sections */
-.about,
-.support,
-.privacy {
-  border-top: 1px solid var(--color-border);
+.featured {
+  background-color: var(--color-surface-tint);
+  border-top: 2px solid var(--color-accent-text);
 }
 
-/* BabyLull featured boundary — accent replaces neutral */
-.babylull {
-  border-top: 2px solid var(--color-accent-text);
+.why-less {
+  background-color: var(--color-surface);
+}
+
+.about {
+  background-color: var(--color-surface);
 }
 
 
@@ -177,7 +173,7 @@ h1, h2 {
 h1 {
   font-size: var(--text-2xl);
   font-weight: 700;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 h2 {
@@ -186,14 +182,22 @@ h2 {
   margin-bottom: var(--space-3);
 }
 
+h3 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
 p { color: var(--color-text); }
 
 p + p { margin-top: var(--space-2); }
 
 @media (min-width: 640px) {
   h1 { font-size: var(--text-4xl); }
-  /* utility h2 stays at text-xl (24 px); babylull h2 gets subtle featured prominence */
-  .babylull h2 { font-size: var(--text-2xl); }
+  h2 { font-size: var(--text-2xl); }
 }
 
 
@@ -201,11 +205,24 @@ p + p { margin-top: var(--space-2); }
    HERO
    ========================================================================== */
 
-.brand-label {
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+.eyebrow {
   display: inline-block;
   font-size: var(--text-sm);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-accent-text);
   margin-bottom: var(--space-1);
@@ -269,7 +286,7 @@ p + p { margin-top: var(--space-2); }
   font-weight: 600;
   line-height: 1;
   padding: 0.75rem 1.5rem;
-  min-height: 44px; /* WCAG touch target */
+  min-height: 44px;
   border-radius: var(--radius);
   border: 2px solid transparent;
   text-decoration: none;
@@ -277,26 +294,24 @@ p + p { margin-top: var(--space-2); }
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Primary CTA */
 .btn-primary {
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
   border-color: var(--color-accent);
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14), 0 1px 2px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.14), 0 1px 2px rgba(0,0,0,0.08);
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18), 0 1px 3px rgba(0, 0, 0, 0.10);
+  opacity: 0.88;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.10);
 }
 
 .btn-primary:active {
   opacity: 1;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
 }
 
-/* Coming-soon disabled state (BabyLull CTA) — intentional inactive, not faded */
 .btn-primary[aria-disabled="true"] {
   background-color: var(--color-surface);
   color: var(--color-text-muted);
@@ -311,7 +326,6 @@ p + p { margin-top: var(--space-2); }
   box-shadow: none;
 }
 
-/* Secondary CTA */
 .btn-secondary {
   background-color: transparent;
   color: var(--color-accent-text);
@@ -323,17 +337,76 @@ p + p { margin-top: var(--space-2); }
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
   border-color: var(--color-accent);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
 }
 
 
 /* ==========================================================================
-   FEATURE LIST
+   CARDS
    ========================================================================== */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 960px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  background: var(--color-surface-tint);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+}
+
+.card__body {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+
+/* ==========================================================================
+   LISTS — value / feature / privacy
+   ========================================================================== */
+
+.value-list {
+  list-style: none;
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.value-list li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+
+.value-list li::before {
+  content: "●";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent-text);
+  font-size: 0.65em;
+  line-height: 1.8;
+}
+
+.list-separator {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--space-3);
+}
 
 .feature-list {
   list-style: none;
-  margin-top: var(--space-3);
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
@@ -353,30 +426,6 @@ p + p { margin-top: var(--space-2); }
   color: var(--color-accent-text);
   font-weight: 700;
 }
-
-
-/* ==========================================================================
-   SUPPORT
-   ========================================================================== */
-
-.support-email {
-  display: inline-block;
-  margin-top: var(--space-2);
-  font-size: var(--text-base);
-  font-weight: 500;
-  color: var(--color-accent-text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.support-email:hover {
-  opacity: 0.75;
-}
-
-
-/* ==========================================================================
-   PRIVACY
-   ========================================================================== */
 
 .privacy-list {
   list-style: none;
@@ -409,16 +458,116 @@ p + p { margin-top: var(--space-2); }
 
 
 /* ==========================================================================
+   PHONE FRAME
+   ========================================================================== */
+
+.phone-frame {
+  aspect-ratio: 9 / 19.5;
+  height: 280px;
+  width: auto;
+  justify-self: center;
+  margin-inline: auto;
+  background: var(--color-frame-shell);
+  padding: 8px;
+  border-radius: 36px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.phone-frame__screen {
+  width: 100%;
+  height: 100%;
+  background: var(--color-frame-screen);
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-frame__screen::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32%;
+  height: 18px;
+  background: var(--color-frame-shell);
+  border-radius: 12px;
+}
+
+@media (min-width: 960px) {
+  .hero .phone-frame    { height: 480px; }
+  .featured .phone-frame { height: 420px; }
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .featured-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+
+
+/* ==========================================================================
    FOOTER
    ========================================================================== */
 
 .footer {
-  padding-block: var(--space-4);
-  border-top: 1px solid var(--color-border);
+  background-color: var(--color-surface-dark);
+  padding-block: 4rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
 }
 
 .footer p {
   font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  text-align: center;
+  color: var(--color-text-on-dark-muted);
+}
+
+.footer-email {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-accent-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s ease;
+}
+
+.footer-email:hover {
+  opacity: 0.8;
+}
+
+
+/* ==========================================================================
+   DARK MODE OVERRIDES
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:           #0F0F10;
+    --color-surface:      #1C1C1E;
+    --color-surface-tint: #222224;
+    --color-surface-dark: #0A0A0B;
+    --color-text:         #F2F2F7;
+    --color-text-muted:   #AEAEB2;
+    --color-border:       #2C2C2E;
+    --color-accent-text:  #C4B5D9;
+    --color-frame-shell:  #2C2C2E;
+    --color-frame-screen: #1C1C1E;
+  }
 }
