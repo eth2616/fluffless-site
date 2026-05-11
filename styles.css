@@ -4,14 +4,14 @@
 
 :root {
   /* Surfaces */
-  --color-bg:           #F7F6F3;
+  --color-bg:           #FAF9F7;
   --color-surface:      #FFFFFF;
   --color-surface-tint: #F1ECE3;
   --color-surface-dark: #1A1A1A;
 
   /* Text */
-  --color-text:               #1C1C1E;
-  --color-text-muted:         #56565A;
+  --color-text:               #111111;
+  --color-text-muted:         #5C5C5C;
   --color-text-on-dark:       #F2F2F7;
   --color-text-on-dark-muted: #AEAEB2;
 
@@ -22,11 +22,21 @@
   --color-accent-on-dark: #C4B5D9;
 
   /* Borders */
-  --color-border: #E2E2DF;
+  --color-border: #E7E3DC;
+  --color-button-disabled-border: #C8C8C3;
 
   /* Frame */
-  --color-frame-shell:  #1C1C1E;
-  --color-frame-screen: #FAFAF9;
+  --color-frame-shell:       #1C1C1E;
+  --color-frame-screen:      #FAFAF9;
+  --color-frame-outline:     transparent;
+
+  /* Elevation (light — visible on warm surfaces) */
+  --shadow-button:                 0 1px 3px rgba(17, 17, 17, 0.08), 0 1px 2px rgba(17, 17, 17, 0.06);
+  --shadow-button-hover:           0 3px 10px rgba(17, 17, 17, 0.12), 0 1px 3px rgba(17, 17, 17, 0.08);
+  --shadow-button-active:          0 1px 2px rgba(17, 17, 17, 0.1);
+  --shadow-button-secondary-hover: 0 1px 3px rgba(17, 17, 17, 0.1);
+  --shadow-frame:                  0 10px 30px rgba(17, 17, 17, 0.12);
+  --shadow-frame-elevated:         0 16px 48px rgba(17, 17, 17, 0.16);
 
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -78,6 +88,7 @@
    ========================================================================== */
 
 html {
+  color-scheme: light dark;
   scroll-behavior: smooth;
 }
 
@@ -110,6 +121,10 @@ body {
   outline: 2.5px solid var(--color-accent-text);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+.btn:focus-visible {
+  border-radius: var(--radius);
 }
 
 
@@ -291,23 +306,23 @@ p + p { margin-top: var(--space-2); }
   color: var(--color-accent-fg);
   border-color: var(--color-accent);
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.14), 0 1px 2px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-button);
 }
 
 .btn-primary:hover {
   opacity: 0.88;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.10);
+  box-shadow: var(--shadow-button-hover);
 }
 
 .btn-primary:active {
   opacity: 1;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+  box-shadow: var(--shadow-button-active);
 }
 
 .btn-primary[aria-disabled="true"] {
   background-color: var(--color-surface);
   color: var(--color-text-muted);
-  border-color: var(--color-border);
+  border-color: var(--color-button-disabled-border);
   box-shadow: none;
   cursor: default;
 }
@@ -329,7 +344,7 @@ p + p { margin-top: var(--space-2); }
   background-color: var(--color-accent);
   color: var(--color-accent-fg);
   border-color: var(--color-accent);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  box-shadow: var(--shadow-button-secondary-hover);
 }
 
 
@@ -456,7 +471,7 @@ p + p { margin-top: var(--space-2); }
   background: var(--color-frame-shell);
   padding: 8px;
   border-radius: 36px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  box-shadow: var(--shadow-frame), inset 0 0 0 1px var(--color-frame-outline);
 }
 
 .phone-frame__screen {
@@ -481,7 +496,10 @@ p + p { margin-top: var(--space-2); }
 }
 
 @media (min-width: 960px) {
-  .featured .phone-frame { height: 460px; box-shadow: 0 16px 48px rgba(0,0,0,0.18); }
+  .featured .phone-frame {
+    height: 460px;
+    box-shadow: var(--shadow-frame-elevated), inset 0 0 0 1px var(--color-frame-outline);
+  }
 }
 
 .featured-grid {
@@ -553,7 +571,16 @@ p + p { margin-top: var(--space-2); }
     --color-text-muted:   #AEAEB2;
     --color-border:       #2C2C2E;
     --color-accent-text:  #C4B5D9;
-    --color-frame-shell:  #2C2C2E;
-    --color-frame-screen: #1C1C1E;
+    --color-button-disabled-border: #3A3A3C;
+    --color-frame-shell:       #2C2C2E;
+    --color-frame-screen:      #1C1C1E;
+    --color-frame-outline:     #3A3A3C;
+
+    --shadow-button:                 0 1px 3px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-button-hover:           0 3px 10px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-button-active:          0 1px 2px rgba(0, 0, 0, 0.45);
+    --shadow-button-secondary-hover: 0 1px 3px rgba(0, 0, 0, 0.45);
+    --shadow-frame:                  0 12px 36px rgba(0, 0, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
+    --shadow-frame-elevated:         0 20px 56px rgba(0, 0, 0, 0.65), 0 8px 20px rgba(0, 0, 0, 0.45);
   }
 }
